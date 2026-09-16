@@ -1,0 +1,14 @@
+{
+  "name": "learning-blog",
+  "version": "1.0.0",
+  "description": "个人学习笔记博客 - 记录知识点与实战案例",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.4"
+  }
+}

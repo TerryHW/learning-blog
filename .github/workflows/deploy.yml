@@ -1,0 +1,71 @@
+# ============================================
+# VitePress 博客 → GitHub Pages 自动部署
+# 每次 git push 到 main 分支后自动执行：
+#   1. 检出代码 → 2. 装 Node → 3. npm ci → 4. 构建 → 5. 发布到 Pages
+# 使用前提：仓库 Settings → Pages → Source 选择「GitHub Actions」
+# ============================================
+name: Deploy VitePress site to Pages
+
+on:
+  # 推送到 main 分支时触发
+  push:
+    branches: [main]
+  # 允许在 Actions 页面手动触发
+  workflow_dispatch:
+
+# GITHUB_TOKEN 权限：允许发布到 Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同一时间只跑一个部署，排队即可（不打断进行中的部署）
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 拉取全部历史，供「最后更新时间」功能使用
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 配置 Pages
+        uses: actions/configure-pages@v4
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 构建站点
+        # ⚠️ VP_BASE 一定要改成你的仓库名！
+        # 仓库叫 learning-blog → base 为 /learning-blog/
+        # 仓库叫 用户名.github.io → 删掉这行里的 VP_BASE=... 即可
+        run: npm run build
+        env:
+          VP_BASE: /learning-blog/
+
+      - name: 上传构建产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .vitepress/dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: 发布到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
