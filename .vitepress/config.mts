@@ -12,7 +12,7 @@ const base = process.env.VP_BASE || '/'
 export default defineConfig({
   // ===== 站点基本信息 =====
   base,
-  title: '我的学习手册',
+  title: '我的学习笔记',
   description: '记录和整理学习过程中的知识点与实战案例',
   lang: 'zh-CN',
 
@@ -41,7 +41,8 @@ export default defineConfig({
           items: [
             { text: 'Git 常用命令速查', link: '/notes/git-basics' },
             { text: 'Python 虚拟环境', link: '/notes/python-virtualenv' },
-            { text: 'Markdown 写作语法', link: '/notes/markdown-syntax' }
+            { text: 'Markdown 写作语法', link: '/notes/markdown-syntax' },
+			{ text: 'MySQL操作指南', link:'/notes/MySQL操作指南'}
           ]
         }
       ],
