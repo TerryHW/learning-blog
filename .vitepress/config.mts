@@ -42,7 +42,7 @@ export default defineConfig({
             { text: 'Git 常用命令速查', link: '/notes/git-basics' },
             { text: 'Python 虚拟环境', link: '/notes/python-virtualenv' },
             { text: 'Markdown 写作语法', link: '/notes/markdown-syntax' },
-			{ text: 'MySQL操作指南', link:'/notes/MySQL操作指南'}
+			{ text: 'MySQL使用参考手册', link:'/notes/MySQL使用参考手册'}
           ]
         }
       ],
