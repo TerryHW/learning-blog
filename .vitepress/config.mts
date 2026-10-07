@@ -52,7 +52,8 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: '搭建第一个 API 服务', link: '/cases/first-api' },
-            { text: '免费 CMS 博客上线实录', link: '/cases/blog-deploy' }
+            { text: '免费 CMS 博客上线实录', link: '/cases/blog-deploy' },
+			{ text: '学生成绩管理系统', link: '/cases/StudentManageSystem' }
           ]
         }
       ]
